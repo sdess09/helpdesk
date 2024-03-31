@@ -30,11 +30,11 @@ const ticketStyle = (status) => ({
       : status === "in progress"
       ? "#fffbea"
       : "#e3fcef",
-  color: status === "new" ? "#034d01" : "#665c00", // Text color changes
+  color: status === "new" ? "#034d01" : "#665c00",
   display: "flex",
   flexDirection: "column",
   alignItems: "flex-start",
-  width: "80%", // Increased width
+  width: "80%",
   marginLeft: "auto",
   marginRight: "auto",
 });
@@ -116,9 +116,10 @@ const SubmitTicketForm = ({ onTicketSubmit }) => {
 };
 
 const AdminPanel = ({ tickets, onUpdateStatus }) => {
-  const handleRespond = () => {
-    alert("Would normally respond here");
+  const handleRespond = (email) => {
+    alert(`Would normally respond to ${email}`);
   };
+
   const [filter, setFilter] = useState("all");
   const filteredTickets = tickets.filter(
     (ticket) => filter === "all" || ticket.status === filter
@@ -127,7 +128,6 @@ const AdminPanel = ({ tickets, onUpdateStatus }) => {
   return (
     <div style={adminPanelStyle}>
       <h2>Admin Panel</h2>
-      {/* Filter Dropdown */}
       <div style={{ marginBottom: "20px" }}>
         <select
           value={filter}
@@ -147,8 +147,6 @@ const AdminPanel = ({ tickets, onUpdateStatus }) => {
           </h3>
           <p>{ticket.description}</p>
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            {" "}
-            {/* Added flexbox styling for spacing */}
             <select
               value={ticket.status}
               onChange={(e) => onUpdateStatus(ticket.id, e.target.value)}
@@ -159,7 +157,7 @@ const AdminPanel = ({ tickets, onUpdateStatus }) => {
               <option value="resolved">Resolved</option>
             </select>
             <button
-              onClick={handleRespond}
+              onClick={() => handleRespond(ticket.email)}
               style={{
                 cursor: "pointer",
                 padding: "4px 8px",
